@@ -33,10 +33,13 @@ fn main() {
     // Prove the session to produce a receipt.
     let receipt = session.prove().unwrap();
 
-    // TODO: Implement code for transmitting or serializing the receipt for
-    // other parties to verify here
-
     // Optional: Verify receipt to confirm that recipients will also be able to
     // verify your receipt
     receipt.verify(MULTIPLY_ID).unwrap();
+
+    // We can extract the output of the journal, c = a * b
+    let c: u64 = from_slice(&receipt.journal).unwrap();
+
+    // Print an assertion
+    println!("Hello, world! I know the factors of {}, and I can prove it!", c);
 }
