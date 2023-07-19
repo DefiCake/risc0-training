@@ -6,7 +6,14 @@ use risc0_zkvm::{ default_executor_from_elf, serde::{ from_slice, to_vec }, Exec
 
 fn main() {
     // First, we construct an executor environment
-    let env = ExecutorEnv::builder().build().unwrap();
+    let a: u64 = 17;
+    let b: u64 = 23;
+
+    let env = ExecutorEnv::builder()
+        .add_input(&to_vec(&a).unwrap())
+        .add_input(&to_vec(&b).unwrap())
+        .build()
+        .unwrap();
 
     // TODO: add guest input to the executor environment using
     // ExecutorEnvBuilder::add_input().
