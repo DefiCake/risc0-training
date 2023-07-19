@@ -22,15 +22,6 @@ fn main() {
 
     let env = ExecutorEnv::builder().add_input(&to_vec(&data).unwrap()).build().unwrap();
 
-    // TODO: add guest input to the executor environment using
-    // ExecutorEnvBuilder::add_input().
-    // To access this method, you'll need to use the alternate construction
-    // ExecutorEnv::builder(), which creates an ExecutorEnvBuilder. When you're
-    // done adding input, call ExecutorEnvBuilder::build().
-
-    // For example:
-    // let env = ExecutorEnv::builder().add_input(&vec).build().unwrap();
-
     // Next, we make an executor, loading the (renamed) ELF binary.
     let mut exec = default_executor_from_elf(env, JSON_ELF).unwrap();
 
@@ -44,11 +35,9 @@ fn main() {
     // verify your receipt
     receipt.verify(JSON_ID).unwrap();
 
-    // We can extract the output of the journal, c = a * b
+    // We can extract the output of the journal
     let out: Outputs = from_slice(&receipt.journal).unwrap();
 
-    // // Print an assertion
-    // println!("Hello, world! I know the factors of {}, and I can prove it!", c);
     println!(
         "Successfully read JSON data with field -name- and value {}, hash {}",
         out.data,
