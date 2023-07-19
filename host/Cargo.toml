@@ -8,3 +8,4 @@ json-methods = { path = "../methods" }
 risc0-zkvm = { version = "0.16.1", features = ["metal"] }
 serde = "1.0"
 clap = {version = "4.0", features = ["derive"]}
+json-core = { path = "../core" }
