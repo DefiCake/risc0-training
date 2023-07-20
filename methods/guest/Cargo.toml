@@ -1,6 +1,6 @@
 [package]
 # TODO: Rename this package to change the method name from METHOD_NAME
-name = "json"
+name = "json-compare"
 version = "0.1.0"
 edition = "2021"
 
