@@ -9,18 +9,27 @@ use json_core::Outputs;
 
 #[derive(Parser)]
 struct Args {
-    path: std::path::PathBuf,
+    file1: std::path::PathBuf,
+    file2: std::path::PathBuf,
 }
 
 fn main() {
     let args: Args = Args::parse();
 
-    let file = std::fs::File::open(&args.path).expect("Could not load filepath");
+    let file1 = std::fs::File::open(&args.file1).expect("Could not load first filepath");
+    let file2 = std::fs::File::open(&args.file2).expect("Could not load second filepath");
 
-    let mut data = String::new();
-    BufReader::new(file).read_to_string(&mut data).expect("Could not read file");
+    let mut data1 = String::new();
+    BufReader::new(file1).read_to_string(&mut data1).expect("Could not read first file contents");
 
-    let env = ExecutorEnv::builder().add_input(&to_vec(&data).unwrap()).build().unwrap();
+    let mut data2 = String::new();
+    BufReader::new(file2).read_to_string(&mut data2).expect("Could not read second file contents");
+
+    let env = ExecutorEnv::builder()
+        .add_input(&to_vec(&data1).unwrap())
+        .add_input(&to_vec(&data2).unwrap())
+        .build()
+        .unwrap();
 
     // Next, we make an executor, loading the (renamed) ELF binary.
     let mut exec = default_executor_from_elf(env, JSON_COMPARE_ELF).unwrap();

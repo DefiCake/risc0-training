@@ -7,16 +7,24 @@ use json_core::Outputs;
 risc0_zkvm::guest::entry!(main);
 
 pub fn main() {
-    let data: String = env::read();
+    let file1: String = env::read();
+    let sha1 = *Impl::hash_bytes(file1.as_bytes());
+    let json1 = parse(&file1).expect("Could not parse JSON");
 
-    let sha = *Impl::hash_bytes(data.as_bytes());
-    let json = parse(&data).expect("Could not parse JSON");
+    let file2: String = env::read();
+    let sha2 = *Impl::hash_bytes(file2.as_bytes());
+    let json2 = parse(&file2).expect("Could not parse second JSON");
 
-    let proven_val: String = json["name"].as_str().unwrap().into();
+    let proven_val: String = json1["name"].as_str().unwrap().into();
+
+    let val2: String = json1["name"].as_str().unwrap().into();
+
+    let val_equivalence = proven_val == val2;
+    let sha_equivalence = sha1 == sha2;
 
     let out = Outputs {
         data: proven_val,
-        hash: sha,
+        hash: sha1,
     };
 
     env::commit(&out);
