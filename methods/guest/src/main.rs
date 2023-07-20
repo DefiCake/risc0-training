@@ -15,16 +15,16 @@ pub fn main() {
     let sha2 = *Impl::hash_bytes(file2.as_bytes());
     let json2 = parse(&file2).expect("Could not parse second JSON");
 
-    let proven_val: String = json1["name"].as_str().unwrap().into();
+    let val1: String = json1["name"].as_str().unwrap().into();
+    let val2: String = json2["name"].as_str().unwrap().into();
 
-    let val2: String = json1["name"].as_str().unwrap().into();
-
-    let val_equivalence = proven_val == val2;
+    let val_equivalence = val1 == val2;
     let sha_equivalence = sha1 == sha2;
 
     let out = Outputs {
-        data: proven_val,
-        hash: sha1,
+        shared_value: val1,
+        val_equivalence,
+        hash_equivalence: sha_equivalence,
     };
 
     env::commit(&out);

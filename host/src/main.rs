@@ -48,8 +48,9 @@ fn main() {
     let out: Outputs = from_slice(&receipt.journal).unwrap();
 
     println!(
-        "Successfully read JSON data with field -name- and value {}, hash {}",
-        out.data,
-        out.hash
+        "Successfully read both JSON files with shared value name: {} and equivalences value: {} hash: {}",
+        out.shared_value,
+        out.val_equivalence,
+        out.hash_equivalence
     );
 }
