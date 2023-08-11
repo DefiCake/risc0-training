@@ -5,7 +5,10 @@ edition = "2021"
 
 [dependencies]
 json-compare-methods = { path = "../methods" }
+json-core = { path = "../core" }
 risc0-zkvm = { version = "0.16.1", features = ["metal"] }
 serde = "1.0"
 clap = {version = "4.0", features = ["derive"]}
-json-core = { path = "../core" }
+fuel-core = {version = "0.19.1", features = ["relayer", "rocksdb"]}
+fuel-tx = "0.35.3"
+fuel-types = "0.35.3"

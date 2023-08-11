@@ -7,6 +7,9 @@ use clap::Parser;
 use std::io::{ BufReader, Read };
 use json_core::Outputs;
 
+use fuel_core::types::blockchain::block::Block;
+use fuel_types::Bytes32;
+
 #[derive(Parser)]
 struct Args {
     file1: std::path::PathBuf,
@@ -15,6 +18,8 @@ struct Args {
 
 fn main() {
     let args: Args = Args::parse();
+
+    // let block: Block;
 
     let file1 = std::fs::File::open(&args.file1).expect("Could not load first filepath");
     let file2 = std::fs::File::open(&args.file2).expect("Could not load second filepath");
